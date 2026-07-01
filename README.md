@@ -83,14 +83,13 @@ A lightweight, dedicated backend application built using Node.js.
 *   **Telemetry Sampling**: Aggregates readings into rolling arrays to calculate moving averages:
     *   *Soil Moisture*: Calculated as an average of 15 analog samples.
     *   *Water Flow*: Monitored via interrupts, calculating a short-term average (5 seconds) and a long-term reference average (45 seconds).
-*   **Deficit-Based Irrigation Math**: Automates irrigation durations based on soil 
-    The calculated volume is divided by the flow rate to determine the exact valve open duration.
+*   **Deficit-Based Irrigation Math**: Calculates precise irrigation durations based on soil moisture levels, crop root depth, and specific soil properties to optimize water consumption.
 *   **Multi-Attempt Irrigation Loop**: Automatically runs up to 4 irrigation cycles. If target moisture is not met after 4 attempts, the system halts with a `Failed: Target not reached` state.
-*   **Blockage Detection & Self-Cleaning**: If the short-term flow drops below $80\%$ of the calibrated reference flow for 15 seconds, the system activates a bypass solenoid valve (`CLEAN_VALVE`) for 5 seconds to flush sediments and debris.
+*   **Blockage Detection & Self-Cleaning**: If the short-term flow drops below 80% of the calibrated reference flow for 15 seconds, the system activates a bypass solenoid valve (`CLEAN_VALVE`) for 5 seconds to flush sediments and debris.
 *   **Safety Halt Routines**: Stops irrigation and flags statuses to the database to prevent pump burn or flooding:
-    *   `Halted: No Flow Detected` (When flow rate falls below $0.3\text{ L/min}$ during active irrigation).
+    *   `Halted: No Flow Detected` (When flow rate falls below 0.3 L/min during active irrigation).
     *   `Halted: Clog Not Rectified` (When flow remains low after 4 self-cleaning attempts).
-    *   `Halted: Overflow` (When flow rate exceeds the reference flow by $20\%$ for 30 consecutive seconds).
+    *   `Halted: Overflow` (When flow rate exceeds the reference flow by 20% for 30 consecutive seconds).
 *   **EEPROM Parameter Cache**: Stores target moisture, root depth, field capacity, and wilting point configurations in local EEPROM so the device retains settings across power cycles.
 *   **Over-The-Air (OTA) Updates**: Serves an update portal locally on port 80 via `ElegantOTA` allowing seamless web-based firmware flashes. Firebase listeners are gracefully suspended during OTA updates to maximize heap memory availability.
 
@@ -244,7 +243,7 @@ You must obtain your numeric Telegram Chat ID to tell the bot where to send noti
 2.  Send any test message to the bot (e.g., "Hello").
 3.  Open a web browser and visit:
     `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates` *(replace `<YOUR_BOT_TOKEN>` with your token)*.
-4.  Locate the JSON object block `"chat"` $\rightarrow$ `"id"` and copy that number.
+4.  Locate the JSON object block `"chat"` -> `"id"` and copy that number.
 
 ---
 
@@ -294,7 +293,7 @@ The alert server runs in the cloud to process events 24/7.
 *   **Incorrect Chat ID**: Chat IDs are purely numerical. Do not include usernames or letters.
 *   **Railway deployment fails**: Verify that `USER_EMAIL` and `USER_PASSWORD` are configured exactly as they appear in your Firebase Authentication database.
 *   **Firebase Authentication issues**: Confirm your project has dynamic security rules enabling reading/writing or that rules do not block the IP address range of the server host.
-*   **Alert spamming prevention**: The alert server has a built-in cooldown window of 5 minutes ($300,000\text{ ms}$) for the same recurring status to prevent flooding your Telegram account.
+*   **Alert spamming prevention**: The alert server has a built-in cooldown window of 5 minutes (300,000 ms) for the same recurring status to prevent flooding your Telegram account.
 
 ---
 
@@ -303,4 +302,13 @@ The alert server runs in the cloud to process events 24/7.
 *   **Secrets Storage**: Never embed your Telegram Bot API Token or Firebase project Admin Keys in the source files. Always use Railway environment variables or read them dynamically from secured database nodes.
 
 *   **Database Constraints**: Once testing is complete, restrict access permissions in Firebase Database rules to authenticated UIDs to prevent data tampering.
-## I can not share more about it,since it is patent pending product
+
+---
+
+## Intellectual Property & Patent Status
+
+> [!IMPORTANT]
+> **Patent Pending Product**
+> This Smart Sprinkler System, including its dynamic telemetry-driven irrigation calculation logic, integrated blockage detection algorithms, and automated self-cleaning mechanisms, is a patent-pending product. 
+> 
+> Unauthorized copying, cloning, distribution, or commercial exploitation of this repository or its constituent components is strictly prohibited. All rights reserved.
