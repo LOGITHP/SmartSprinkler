@@ -52,8 +52,8 @@ graph TD
     end
 
     %% Data Flow
-    ESP <=>|Wi-Fi / Firebase Client SDK| DB
-    DB <=>|JS Web SDK| Dashboard
+    ESP <-->|Wi-Fi / Firebase Client SDK| DB
+    DB <-->|JS Web SDK| Dashboard
     DB -.->|Admin Listen| AlertServer
     AlertServer -->|POST API| TelegramAPI[Telegram Bot API]
     TelegramAPI -->|Push Notification| Telegram
