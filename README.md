@@ -303,4 +303,4 @@ The alert server runs in the cloud to process events 24/7.
 *   **Secrets Storage**: Never embed your Telegram Bot API Token or Firebase project Admin Keys in the source files. Always use Railway environment variables or read them dynamically from secured database nodes.
 
 *   **Database Constraints**: Once testing is complete, restrict access permissions in Firebase Database rules to authenticated UIDs to prevent data tampering.
-## I can not share more about since it is patent pending product
+## I can not share more about it,since it is patent pending product
